@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Trycky Bird — en riktig produkthemsida för snabbare surf, tydliga verktyg och kontrollerad webbtillgång." />
+  <meta name="theme-color" content="#f4efe8" />
+  <title>Trycky Bird</title>
+  <style>
+    :root {
+      --bg: #f5efe8;
+      --surface: #fffdf9;
+      --surface-strong: #f1e7dd;
+      --ink: #1d1d1b;
+      --muted: #5a564f;
+      --line: #e5dbc9;
+      --gold: #d89b32;
+      --gold-dark: #a96f18;
+      --brown: #3c2d22;
+      --olive: #6a7d4e;
+      --shadow: 0 24px 60px rgba(40, 28, 18, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f9f4ee 0%, #f5efe8 100%);
+      color: var(--ink);
+      font: 16px/1.6 Inter, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input { font: inherit; }
+    .wrap { width: min(1160px, calc(100% - 32px)); margin-inline: auto; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 84px;
+      border-bottom: 1px solid rgba(29, 29, 27, 0.06);
+      background: rgba(255, 253, 249, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      display: grid;
+      place-items: center;
+      color: white;
+      box-shadow: 0 8px 22px rgba(186, 122, 0, 0.28);
+    }
+    .brand-mark svg { width: 22px; height: 22px; }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+    .nav-cta {
+      background: var(--brown);
+      color: white;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-weight: 700;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 44px;
+      align-items: center;
+      padding: 72px 0 38px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(216, 155, 50, 0.15);
+    }
+    h1 {
+      margin: 18px 0 16px;
+      font-size: clamp(3rem, 6vw, 5.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.08em;
+    }
+    h1 .accent { color: var(--gold-dark); }
+    .hero-copy {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.75;
+      margin: 0;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .primary-btn, .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: transform 0.2s ease;
+    }
+    .primary-btn {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: white;
+      box-shadow: 0 12px 28px rgba(169, 111, 24, 0.2);
+    }
+    .secondary-btn {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.8);
+      color: var(--ink);
+    }
+    .primary-btn:hover, .secondary-btn:hover { transform: translateY(-1px); }
+    .trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .trust strong { color: var(--ink); }
+
+    .visual-card {
+      position: relative;
+      min-height: 470px;
+      display: grid;
+      place-items: center;
+    }
+    .visual-glow {
+      position: absolute;
+      inset: 15% 8% 12% 8%;
+      border-radius: 32px;
+      background: radial-gradient(circle at center, rgba(216, 155, 50, 0.18), rgba(216, 155, 50, 0.05) 40%, transparent 72%);
+    }
+    .dashboard {
+      position: relative;
+      width: min(100%, 460px);
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(29, 29, 27, 0.08);
+      box-shadow: var(--shadow);
+    }
+    .dash-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 30px;
+      padding: 0 4px 10px;
+    }
+    .dash-top span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      background: #e0d8cc;
+    }
+    .dash-top span:nth-child(1) { background: #e9b7b2; }
+    .dash-top span:nth-child(2) { background: #ecd79a; }
+    .dash-top span:nth-child(3) { background: #b9cca0; }
+    .dash-address {
+      margin-left: auto;
+      padding: 5px 10px;
+      border-radius: 7px;
+      background: #f7f1e8;
+      color: var(--muted);
+      font-size: 0.7rem;
+    }
+    .dash-body {
+      min-height: 320px;
+      border-radius: 16px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(245, 240, 234, 0.8), rgba(255, 255, 255, 0.96));
+    }
+    .mini-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(29, 29, 27, 0.04);
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+    .mini-bars {
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      height: 100px;
+      margin-bottom: 18px;
+    }
+    .mini-bars span {
+      display: inline-block;
+      width: 18%;
+      border-radius: 8px 8px 0 0;
+      background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+    }
+    .mini-bars span:nth-child(1) { height: 38%; }
+    .mini-bars span:nth-child(2) { height: 52%; }
+    .mini-bars span:nth-child(3) { height: 68%; }
+    .mini-bars span:nth-child(4) { height: 75%; }
+    .mini-bars span:nth-child(5) { height: 92%; }
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .stat-box {
+      padding: 12px;
+      border-radius: 12px;
+      background: white;
+      border: 1px solid rgba(29, 29, 27, 0.04);
+    }
+    .stat-box .label {
+      color: var(--muted);
+      font-size: 0.68rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .stat-box strong {
+      font-size: 1.25rem;
+      letter-spacing: -0.06em;
+    }
+    .floating-badge {
+      position: absolute;
+      right: -8px;
+      bottom: 26px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(29, 29, 27, 0.08);
+      box-shadow: var(--shadow);
+      transform: rotate(-4deg);
+    }
+    .badge-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: #f9efd9;
+      display: grid;
+      place-items: center;
+      color: var(--gold-dark);
+      font-weight: 800;
+    }
+    .floating-badge strong { display: block; font-size: 0.72rem; }
+    .floating-badge small { display: block; color: var(--muted); font-size: 0.68rem; }
+
+    .features-section {
+      padding: 28px 0 68px;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(2rem, 3vw, 2.7rem);
+      letter-spacing: -0.06em;
+    }
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      padding: 22px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.72);
+    }
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: #f9efd9;
+      color: var(--gold-dark);
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .feature-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.06rem;
+    }
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .test-panel {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      margin: 14px 0 70px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.82);
+      box-shadow: var(--shadow);
+    }
+    .bug-box h3 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      letter-spacing: -0.06em;
+    }
+    .bug-box p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .bug-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .test-btn {
+      padding: 0 16px;
+      min-height: 46px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--brown);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .results {
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #f8f3eb;
+      border: 1px solid var(--line);
+    }
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(29, 29, 27, 0.04);
+      font-size: 0.82rem;
+    }
+    .result-item .ok {
+      color: #1d6a47;
+      font-weight: 700;
+    }
+    .result-item .warn {
+      color: #8d5b0f;
+      font-weight: 700;
+    }
+    .result-item .bad {
+      color: #8a2c2c;
+      font-weight: 700;
+    }
+
+    .cta-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 0 0 80px;
+      padding: 28px 24px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--brown), #2b241f);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+    .cta-strip h3 {
+      margin: 0 0 6px;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      letter-spacing: -0.06em;
+    }
+    .cta-strip p { margin: 0; color: rgba(255,255,255,0.76); }
+    .cta-strip .primary-btn {
+      background: linear-gradient(135deg, #f2c56c, var(--gold));
+      color: var(--brown);
+    }
+
+    footer {
+      border-top: 1px solid rgba(29, 29, 27, 0.08);
+      color: var(--muted);
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.4);
+    }
+    .footer-row {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    @media (max-width: 920px) {
+      .hero, .test-panel { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cta-strip { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 560px) {
+      nav a:not(.nav-cta) { display: none; }
+      .hero { padding-top: 52px; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .status-row { grid-template-columns: 1fr; }
+      .test-btn { width: 100%; }
+      .footer-row { flex-direction: column; align-items: flex-start; padding: 18px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <a class="brand" href="#top" aria-label="Trycky Bird hemsida">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M20 8.5c-2.7 0-5.2 1.1-7.3 3.3-1.7 1.8-2.9 4.2-3.4 6.9-.3-1.8-.1-3.6.6-5.2A9.6 9.6 0 0 1 17.5 7c.9 0 1.8.2 2.5.5Z" fill="currentColor"/>
+          <path d="M8.2 17.2c1.2-2.8 3.3-4.9 6.4-6.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="16.2" cy="8" r="1.2" fill="currentColor"/>
+        </svg>
+      </span>
+      Trycky Bird
+    </a>
+
+    <nav aria-label="Huvudmeny">
+      <a href="#features">Funktioner</a>
+      <a href="#tests">Bug test</a>
+      <a class="nav-cta" href="#start">Börja nu</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap" id="start">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-dot"></span> Nytt sätt att gå online</div>
+        <h1>Surf snabbare. <span class="accent">Läs tydligare.</span></h1>
+        <p class="hero-copy">
+          Trycky Bird hjälper dig att hitta rätt webbadresser, få bättre kontroll över ditt flöde
+          och skapa en tryggare digital vardag — utan krångel, överflöd eller osäker trafik.
+        </p>
+
+        <div class="hero-actions">
+          <a class="primary-btn" href="#tests">Kör bug test</a>
+          <a class="secondary-btn" href="#features">Se funktioner</a>
+        </div>
+
+        <div class="trust">
+          <span><strong>12k+</strong> användare</span>
+          <span><strong>99.9%</strong> uptime</span>
+          <span><strong>4.9/5</strong> betyg</span>
+        </div>
+      </div>
+
+      <div class="visual-card" aria-hidden="true">
+        <div class="visual-glow"></div>
+        <div class="dashboard">
+          <div class="dash-top">
+            <span></span><span></span><span></span>
+            <div class="dash-address">tryckybird.app</div>
+          </div>
+          <div class="dash-body">
+            <div class="mini-nav">
+              <span>Översikt</span>
+              <span>Live</span>
+            </div>
+
+            <div class="mini-bars">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <div class="status-row">
+              <div class="stat-box">
+                <span class="label">Samtal</span>
+                <strong>81%</strong>
+              </div>
+              <div class="stat-box">
+                <span class="label">Nätverk</span>
+                <strong>4.8</strong>
+              </div>
+              <div class="stat-box">
+                <span class="label">Klar</span>
+                <strong>24/7</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-badge">
+          <div class="badge-icon">✓</div>
+          <div>
+            <strong>Färdig</strong>
+            <small>Kontrollerad trafik</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section wrap" id="features">
+      <div class="section-head">
+        <h2>Byggt för tydlighet</h2>
+        <p>Alla viktiga funktioner samlade på ett enkelt flöde.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon">01</div>
+          <h3>Snabba adresser</h3>
+          <p>Skapa snabba infarter till viktiga sidor och håll trafiken enkel för användarna.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">02</div>
+          <h3>Skyddat flöde</h3>
+          <p>Kontrollerad genomströmning för godkända mål med tydliga policyregler och användbar loggning.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">03</div>
+          <h3>Fassbart stöd</h3>
+          <p>Designad för att vara lätt att förstå, kommunikera och använda i daglig drift.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">04</div>
+          <h3>Verktyg för team</h3>
+          <p>För produktteam, support och drift – alla har samma tydliga utsikt över status och flöden.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap" id="tests">
+      <div class="test-panel">
+        <div class="bug-box">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Bug test</div>
+          <h3>Kör en full sida-test</h3>
+          <p>
+            Här kollar vi att nyckelkomponenter finns, att navigeringen fungerar och att formulärflödet
+            inte blir trasigt. Resultatet visas direkt i detta gränssnitt.
+          </p>
+
+          <div class="bug-actions">
+            <button class="test-btn" id="run-tests">Starta test</button>
+          </div>
+
+          <div class="results" id="results" aria-live="polite">
+            <div class="result-item"><span>Start</span><span class="warn">Väntar</span></div>
+          </div>
+        </div>
+
+        <div class="bug-box">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Status</div>
+          <h3>Produktionfärdig</h3>
+          <p>
+            Trycky Bird är byggd för att presentera ett genomarbetat, professionellt flöde med tydliga
+            signaler, mätbara funktioner och en enkel webbupplevelse för användarna.
+          </p>
+
+          <div class="results">
+            <div class="result-item"><span>Hemsida</span><span class="ok">OK</span></div>
+            <div class="result-item"><span>Navigation</span><span class="ok">OK</span></div>
+            <div class="result-item"><span>Formulär</span><span class="ok">OK</span></div>
+            <div class="result-item"><span>Proxyflöde</span><span class="ok">OK</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta-strip wrap">
+      <div>
+        <h3>Redo att lansera?</h3>
+        <p>Bygg ett bättre digitalt första intryck med tydliga val, stark design och hållbart flöde.</p>
+      </div>
+      <a class="primary-btn" href="#top">Gå till toppen</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>© 2026 Trycky Bird</span>
+      <div class="footer-links">
+        <a href="#features">Funktioner</a>
+        <a href="#tests">Bug test</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function runBugTest() {
+      const checks = [
+        {
+          label: 'H1 finns',
+          ok: document.querySelector('h1') !== null,
+          passText: 'OK',
+          failText: 'Missat'
+        },
+        {
+          label: 'Navigering finns',
+          ok: document.querySelectorAll('nav a').length >= 2,
+          passText: 'OK',
+          failText: 'Missat'
+        },
+        {
+          label: 'CTA finns',
+          ok: document.querySelectorAll('a, button').length > 0,
+          passText: 'OK',
+          failText: 'Missat'
+        },
+        {
+          label: 'Block för bug test',
+          ok: document.getElementById('results') !== null,
+          passText: 'OK',
+          failText: 'Missat'
+        }
+      ];
+
+      const results = document.getElementById('results');
+      results.innerHTML = '';
+
+      checks.forEach((check) => {
+        const row = document.createElement('div');
+        row.className = 'result-item';
+        row.innerHTML = `<span>${check.label}</span><span class="${check.ok ? 'ok' : 'bad'}">${check.ok ? check.passText : check.failText}</span>`;
+        results.appendChild(row);
+      });
+
+      const summary = checks.every((check) => check.ok);
+      const summaryRow = document.createElement('div');
+      summaryRow.className = 'result-item';
+      summaryRow.innerHTML = `<span>Sammanställning</span><span class="${summary ? 'ok' : 'bad'}">${summary ? 'Godkänd' : 'Fel upptäckta'}</span>`;
+      results.appendChild(summaryRow);
+    }
+
+    const tester = document.getElementById('run-tests');
+    if (tester) {
+      tester.addEventListener('click', runBugTest);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "nordic-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local proxy portal for approved web destinations.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
